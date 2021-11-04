@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class Artista{
-    Long idArtist;
-    String name;
-    String genre;
-    String image;
+    private Long idArtist;
+    private String name;
+    private String genre;
+    private String image;
 }
