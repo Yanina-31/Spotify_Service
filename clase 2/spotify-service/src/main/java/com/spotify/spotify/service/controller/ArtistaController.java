@@ -7,19 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping (path = "/artista")
+@RequestMapping(path = "/artist")
 public class ArtistaController {
     @Autowired
     private ArtistaService artistaService;
 
-    @GetMapping(path = "/{id}")
-    public Artista retrivePinnaper(@PathVariable  Long id){
-        return this.artistaService.getArtista(id);
+    @GetMapping(path = "/{artistId}")
+    public Artista retriveArtista(@PathVariable  Long artistId){
+        return this.artistaService.getArtista(artistId);
     }
 
     @PostMapping(path = "")
-    public  Artista creatArtista(@RequestBody ArtistaRequest request){
+    public  Artista createArtista(@RequestBody ArtistaRequest request){
         return artistaService.createArtista(request);
+    }
+    @DeleteMapping(path = "/{artistId}")
+    public Artista deleteArtista(@PathVariable Long artistId){
+        return this.artistaService.deleteArtista(artistId);
+    }
+    @PutMapping(path = "/{artistId}")
+    public Artista updateArtista(@PathVariable  Long artistId){
+        return this.artistaService.updateArtista(artistId);
     }
 }
 

@@ -10,7 +10,11 @@ public class ArtistaMapper implements Function<ArtistaRequest, Artista>{
         @Override
         public Artista apply(ArtistaRequest artistaRequest)
         {
-            return Artista.builder().idArtist(artistaRequest.getIdArtist()).genre(artistaRequest.getGenre()).name(artistaRequest.getName()).image(artistaRequest.getImage()).build();
+            return Artista.builder()
+                    .idArtist(artistaRequest.getIdArtist())
+                    .genre(artistaRequest.getGenre())
+                    .name(artistaRequest.getName())
+                    .image(artistaRequest.getImage()).build();
 
         }
 
