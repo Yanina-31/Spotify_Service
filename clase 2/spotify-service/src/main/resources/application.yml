@@ -1,0 +1,19 @@
+server:
+  port: ${APPLICATION_PORT:8085}
+---
+spring:
+  application:
+    name: spotity-service
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      path-mapping:
+        prometheus: /metrics
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
