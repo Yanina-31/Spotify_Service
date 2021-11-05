@@ -1,14 +1,28 @@
-package com.spotify.spotify.service.service;
+package com.spotify.spotify.service.service.impl;
 
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
+import com.spotify.spotify.service.service.IArtistaService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
 import com.spotify.spotify.service.types.model.Artista;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class ArtistaService {
-    public Artista getArtista(Long artistId) {
+public class ArtistaService implements IArtistaService {
+
+    @Autowired
+    private ArtistaMapper artistaMapper;
+
+    @Qualifier("artistas")
+    @Autowired
+    private List<Artista> artistas;
+
+
+    @Override
+    public Artista getArtista() {
         return Artista.builder()
                 .idArtist(1L)
                 .name("Babasonicos")
@@ -16,14 +30,18 @@ public class ArtistaService {
                 .image("nxnnxnnnnnnnnnnn")
                 .build();
     }
-    @Autowired
-    private ArtistaMapper artistaMapper;
 
+    @Override
+    public List<Artista> getArtistas(){
+        return artistas;
+    }
+
+    @Override
     public Artista createArtista(ArtistaRequest request) {
         return artistaMapper.apply(request);
     }
 
-    public Artista deleteArtista(Long artistId) {
+    /*public Artista deleteArtista(Long artistId) {
         return Artista.builder()
                 //.idArtist(artistId)
                 //.name("null-null")
@@ -33,12 +51,12 @@ public class ArtistaService {
 
     }
 
-    public Artista updateArtista(Long artistId) {
+    public Artista updateArtista(Long idArtist) {
         return Artista.builder()
-                .idArtist(artistId)
+                .idArtist(idArtist)
                 .name("La Renga")
                 .genre("Romantic")
                 .image("ljedkjjuygvbn")
                 .build();
-    }
+    }*/
 }
