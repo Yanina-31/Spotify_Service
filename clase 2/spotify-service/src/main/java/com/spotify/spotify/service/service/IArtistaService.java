@@ -8,10 +8,14 @@ import java.util.List;
 
 public interface IArtistaService {
 
-    Artista getArtista();
+    Artista getArtista(Long artistId);
 
     List<Artista> getArtistas();
 
     Artista createArtista(ArtistaRequest request);
+
+    Artista updateArtista(ArtistaRequest request, Long artistId);
+
+    Artista deleteArtista(Long artistId);
 
 }

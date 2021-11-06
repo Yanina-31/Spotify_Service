@@ -1,9 +1,7 @@
 package com.spotify.spotify.service.configuration;
-
 import com.spotify.spotify.service.types.model.Artista;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class ArtistaConfiguration {
         return Arrays.asList(
             Artista.builder()
                 .idArtist(1L)
-                .name("Maria")
+                .name("Carla")
                 .genre("Melodico")
                 .image("kdnslmñm")
                 .build(),
@@ -36,6 +34,12 @@ public class ArtistaConfiguration {
                 .name("Rodrigo")
                 .genre("Pop")
                 .image("kdnslmcvvvvcñm")
+                .build(),
+            Artista.builder()
+                .idArtist(5L)
+                .name("Mili")
+                .genre("Pop")
+                .image("vvvvcñm")
                 .build());
 
     }
