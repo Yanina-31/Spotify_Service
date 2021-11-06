@@ -1,6 +1,4 @@
 package com.spotify.spotify.service.service;
-
-
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.types.model.Artista;
 

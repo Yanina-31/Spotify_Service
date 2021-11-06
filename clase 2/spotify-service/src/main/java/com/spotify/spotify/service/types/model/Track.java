@@ -16,5 +16,5 @@ public class Track { //extends Album{
     private Long idAlbum;
     private Long idArtist;
     private Long reproduction;
-    private String duration;
+    private Double duration;
 }
