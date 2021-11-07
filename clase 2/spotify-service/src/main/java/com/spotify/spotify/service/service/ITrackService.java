@@ -2,6 +2,7 @@ package com.spotify.spotify.service.service;
 
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.controller.request.TrackRequest;
+import com.spotify.spotify.service.exceptions.TrackNotExistException;
 import com.spotify.spotify.service.types.model.Artista;
 import com.spotify.spotify.service.types.model.Track;
 
@@ -18,4 +19,7 @@ public interface ITrackService {
     Track updateTrack(TrackRequest request, Long trackId);
 
     Track deleteTrack(Long trackId);
+
+    Track incrementReproduction(Long trackId) throws TrackNotExistException;
+
 }

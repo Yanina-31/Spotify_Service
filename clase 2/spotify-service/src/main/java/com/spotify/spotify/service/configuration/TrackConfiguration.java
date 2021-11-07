@@ -15,7 +15,7 @@ public class TrackConfiguration {
                     .name("Mariposa Tecnicolor")
                     .idArtist(1L)
                     .idAlbum(1L)
-                    .reproduction(1L)
+                    .reproduction(10L)
                     .duration(3.23)
                     .build(),
             Track.builder()
@@ -23,7 +23,7 @@ public class TrackConfiguration {
                     .name("Mariposa Traicionera")
                     .idArtist(2L)
                     .idAlbum(2L)
-                    .reproduction(2L)
+                    .reproduction(252L)
                     .duration(3.20)
                     .build(),
             Track.builder()
@@ -31,7 +31,7 @@ public class TrackConfiguration {
                     .name("A brillar mi amor")
                     .idArtist(3L)
                     .idAlbum(3L)
-                    .reproduction(3L)
+                    .reproduction(36L)
                     .duration(3.58)
                     .build(),
             Track.builder()
@@ -39,7 +39,7 @@ public class TrackConfiguration {
                     .name("Caminito al costado del mundo")
                     .idArtist(4L)
                     .idAlbum(4L)
-                    .reproduction(4L)
+                    .reproduction(48L)
                     .duration(4.20)
                     .build(),
             Track.builder()
@@ -47,7 +47,7 @@ public class TrackConfiguration {
                     .name("Por debajo de la mesa")
                     .idArtist(5L)
                     .idAlbum(5L)
-                    .reproduction(5L)
+                    .reproduction(52L)
                     .duration(3.59)
                     .build());
     }

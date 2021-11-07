@@ -1,5 +1,6 @@
 package com.spotify.spotify.service.controller;
 import com.spotify.spotify.service.controller.request.TrackRequest;
+import com.spotify.spotify.service.exceptions.TrackNotExistException;
 import com.spotify.spotify.service.service.impl.TrackService;
 import com.spotify.spotify.service.types.model.Track;
 import lombok.extern.slf4j.Slf4j;
@@ -45,4 +46,10 @@ public class TrackController {
         return trackService.deleteTrack(trackId);
     }
 
+    @GetMapping(path = "/spotify/play/track/{trackId}")
+    public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
+        return trackService.incrementReproduction(trackId);
+    }
 }
+
+

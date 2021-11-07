@@ -78,4 +78,16 @@ public class TrackService implements ITrackService {
         }
         return track;
     }
+
+    public Track incrementReproduction(Long trackId) throws TrackNotExistException {
+        Track track = trackMap.get(trackId);
+        if(track != null) {
+            track.setReproduction(track.getReproduction() + 1);
+            trackMap.put(trackId, track);
+        } else {
+            log.error("Track with id {} does not exist", trackId);
+            throw new TrackNotExistException("Track with id " + trackId + " does not exist");
+        }
+        return track;
+    }
 }
