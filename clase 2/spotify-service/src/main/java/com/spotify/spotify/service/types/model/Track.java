@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 
-public class Track { //extends Album{
+public class Track {
     private Long id;
     private String name;
     private Long idAlbum;
     private Long idArtist;
     private Long reproduction;
-    private Double duration;
+    private double duration;
+
+
 }
