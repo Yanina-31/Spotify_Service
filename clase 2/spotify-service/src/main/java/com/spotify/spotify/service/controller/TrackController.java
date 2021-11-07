@@ -50,6 +50,12 @@ public class TrackController {
     public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
         return trackService.incrementReproduction(trackId);
     }
+    @GetMapping(path = "/track/rank")
+    public List<Track> getTopTracks() {
+        return trackService.getTopTracks();
+    }
+
+
 }
 
 

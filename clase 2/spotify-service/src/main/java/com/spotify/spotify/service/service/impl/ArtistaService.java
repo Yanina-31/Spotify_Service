@@ -5,9 +5,11 @@ import com.spotify.spotify.service.exceptions.AlbumNotExistExcetion;
 import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
 import com.spotify.spotify.service.service.IArtistaService;
+import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
 import com.spotify.spotify.service.types.model.Album;
 import com.spotify.spotify.service.types.model.Artista;
+import com.spotify.spotify.service.types.model.Track;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class ArtistaService implements IArtistaService {
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
+
+    @Autowired
+    private TrackService trackService;
 
     @PostConstruct
     public void init() {
@@ -78,5 +83,13 @@ public class ArtistaService implements IArtistaService {
             throw new AlbumNotExistExcetion("El Album con id " + artistId + " no existe");
         }
         return artista;
+    }
+
+   public List<Track> getTracks() {
+       return trackService.getTracks();
+    }
+
+   public List<Artista> getArtistasTop5() {
+        return new ArrayList<>(artistaMap.values());
     }
 }

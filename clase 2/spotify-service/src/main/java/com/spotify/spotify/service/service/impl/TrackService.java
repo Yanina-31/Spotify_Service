@@ -90,4 +90,8 @@ public class TrackService implements ITrackService {
         }
         return track;
     }
+
+    public List<Track> getTopTracks() {
+        return new ArrayList<>(trackMap.values());
+    }
 }

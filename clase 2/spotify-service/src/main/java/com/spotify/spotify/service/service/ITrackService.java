@@ -22,4 +22,6 @@ public interface ITrackService {
 
     Track incrementReproduction(Long trackId) throws TrackNotExistException;
 
+    List<Track> getTopTracks();
+
 }
