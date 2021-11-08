@@ -1,26 +1,47 @@
 package com.spotify.spotify.service.controller;
-
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
-import com.spotify.spotify.service.service.ArtistaService;
+import com.spotify.spotify.service.service.impl.ArtistaService;
 import com.spotify.spotify.service.types.model.Artista;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping (path = "/artista")
+@RequestMapping(path = "/artist")
 public class ArtistaController {
     @Autowired
     private ArtistaService artistaService;
 
-    @GetMapping(path = "/{id}")
-    public Artista retrivePinnaper(@PathVariable  Long id){
-        return this.artistaService.getArtista(id);
+    @GetMapping(path = "/")
+    public String initial() {
+        return "En esta pagina podra encontrar Artistas";
     }
 
-    @PostMapping(path = "")
-    public  Artista creatArtista(@RequestBody ArtistaRequest request){
+    @GetMapping(path = "/{artistId}")
+    public Artista retriveArtista(@PathVariable("artistId") Long artistId) {
+        //log.info("artistId {}", artistId);
+        return artistaService.getArtista(artistId);
+    }
+
+    @GetMapping(path = "/artists/")
+    public List<Artista> retriveArtistas() {
+        return artistaService.getArtistas();
+    }
+
+    @PostMapping(path = "/artist")
+    public Artista createArtista(@Validated @RequestBody ArtistaRequest request) {
         return artistaService.createArtista(request);
     }
+    @PutMapping(path = "/{artistId}")
+    public Artista updateArtista(@Validated @RequestBody ArtistaRequest request, @PathVariable("artistId") Long artistId) {
+        return artistaService.updateArtista(request, artistId);
+    }
+
+    @DeleteMapping(path ="/{artistId}")
+    public Artista deleteArtista(@PathVariable("artistId") Long artistId) {
+        return artistaService.deleteArtista(artistId);
+    }
 }
-
-

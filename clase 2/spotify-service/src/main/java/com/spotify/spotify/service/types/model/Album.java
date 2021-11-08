@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 
-public class Album { // extends Artista{
+public class Album {
     private Long idAlbum;
     private Long idArtist;
     private String name;
