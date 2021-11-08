@@ -11,7 +11,6 @@ public class TrackConfiguration {
     public static List<Track> getTracks(){
         return Arrays.asList(
             Track.builder()
-                    .id(1L)
                     .name("Mariposa Tecnicolor")
                     .idArtist(2L)
                     .idAlbum(1L)
@@ -19,7 +18,6 @@ public class TrackConfiguration {
                     .duration(3.23)
                     .build(),
             Track.builder()
-                    .id(2L)
                     .name("Mariposa Traicionera")
                     .idArtist(2L)
                     .idAlbum(2L)
@@ -27,7 +25,6 @@ public class TrackConfiguration {
                     .duration(3.20)
                     .build(),
             Track.builder()
-                    .id(3L)
                     .name("A brillar mi amor")
                     .idArtist(2L)
                     .idAlbum(3L)
@@ -35,7 +32,6 @@ public class TrackConfiguration {
                     .duration(3.58)
                     .build(),
             Track.builder()
-                    .id(4L)
                     .name("Caminito al costado del mundo")
                     .idArtist(1L)
                     .idAlbum(4L)
@@ -43,7 +39,6 @@ public class TrackConfiguration {
                     .duration(4.20)
                     .build(),
             Track.builder()
-                    .id(5L)
                     .name("Por debajo de la mesa")
                     .idArtist(1L)
                     .idAlbum(5L)

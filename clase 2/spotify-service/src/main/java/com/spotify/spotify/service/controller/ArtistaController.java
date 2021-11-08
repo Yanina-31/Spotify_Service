@@ -1,6 +1,7 @@
 package com.spotify.spotify.service.controller;
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.service.impl.ArtistaService;
+import com.spotify.spotify.service.service.impl.TrackService;
 import com.spotify.spotify.service.types.model.Artista;
 import com.spotify.spotify.service.types.model.Track;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,9 @@ public class ArtistaController {
     @Autowired
     private ArtistaService artistaService;
 
+    @Autowired
+    private TrackService trackService;
+
     @GetMapping(path = "/")
     public String initial() {
         return "En esta pagina podra encontrar Artistas";
@@ -28,7 +32,7 @@ public class ArtistaController {
     }
 
     @GetMapping(path = "/artists/")
-    public List<Artista> retriveArtistas() {
+    public Iterable<Artista> retriveArtistas() {
         return artistaService.getArtistas();
     }
 

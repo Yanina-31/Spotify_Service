@@ -11,29 +11,24 @@ public class AlbumConfiguration {
     public static List<Album> getAlbums(){
         return Arrays.asList(
                 Album.builder()
-                        .idAlbum(1L)
                         .idArtist(1L)
-                        .name("La felicidad")
+                        .name("Romances")
                         .build(),
                 Album.builder()
-                        .idAlbum(2L)
                         .idArtist(2L)
-                        .name("Me gusta Java")
+                        .name("Detonador de Sueños")
                         .build(),
                 Album.builder()
-                        .idAlbum(3L)
                         .idArtist(3L)
-                        .name("Quiero aprender mas")
+                        .name("La esquina del infinito")
                         .build(),
                 Album.builder()
-                        .idAlbum(4L)
                         .idArtist(4L)
-                        .name("Cuando calienta el sol")
+                        .name("Animal")
                         .build(),
                 Album.builder()
-                        .idAlbum(5L)
                         .idArtist(5L)
-                        .name("Aqui em la playa")
+                        .name("Quiero volver")
                         .build());
     }
 }

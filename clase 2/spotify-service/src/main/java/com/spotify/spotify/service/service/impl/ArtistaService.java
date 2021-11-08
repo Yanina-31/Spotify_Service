@@ -1,9 +1,12 @@
 package com.spotify.spotify.service.service.impl;
 import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
+import com.spotify.spotify.service.exceptions.AlbumExistsException;
 import com.spotify.spotify.service.exceptions.AlbumNotExistExcetion;
 import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
+import com.spotify.spotify.service.repository.AlbumRepository;
+import com.spotify.spotify.service.repository.ArtistaRepository;
 import com.spotify.spotify.service.service.IArtistaService;
 import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
@@ -28,42 +31,46 @@ public class ArtistaService implements IArtistaService {
     @Autowired
     private ArtistaMapper artistaMapper;
 
+    @Autowired
+    private TrackService trackService;
+
+    @Autowired
+    private ArtistaRepository artistaRepository;
+
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
 
-    @Autowired
-    private TrackService trackService;
+    private Map<Long, Artista> artistaMap = new HashMap<>();
 
-    @PostConstruct
+
+    /*@PostConstruct
     public void init() {
-        artistaMap = new HashMap<>();
-        artistas.stream().forEach(artista -> {
-                artistaMap.put(artista.getIdArtist(), artista);
+       artistas.stream().forEach(artista -> {
+           artistaRepository.save(artista);
         });
-    }
-
-    private Map<Long, Artista> artistaMap;
+    }*/
 
     public Artista getArtista(Long artistId) {
-        return artistaMap.get(artistId);
+        return artistaRepository.findById(artistId).get();
     }
 
     public Artista deleteArtista(Long artistId) {
-        return artistaMap.remove(artistId);
+        artistaRepository.deleteById(artistId);
+        return null;
     }
 
-    public List<Artista> getArtistas(){
-        return new ArrayList<>(artistaMap.values());
+    public Iterable<Artista> getArtistas(){
+        return artistaRepository.findAll();
     }
 
     public Artista createArtista(ArtistaRequest request) {
         Artista artista = artistaMapper.apply(request);
-        if(artistaMap.get(request.getIdArtist()) == null) {
-            artistaMap.put(request.getIdArtist(), artistaMapper.apply(request));
+        if(request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
+            log.error("El Artista ya existe");
+            throw new AlbumExistsException("El Artista ya existe");
         }else {
-            log.error("El artista con id {} ya existe", request.getIdArtist());
-            throw new ArtistaExistsException("El artista con id " + request.getIdArtist() + " ya existe");
+            artistaRepository.save(artistaMapper.apply(request));
         }
         return artista;
     }
@@ -71,16 +78,13 @@ public class ArtistaService implements IArtistaService {
     @SneakyThrows
     @Override
     public Artista updateArtista(ArtistaRequest request, Long artistId) {
-        Artista artista = artistaMap.get(artistId);
-        if(artista != null) {
-            artista.setIdArtist(request.getIdArtist());
-            artista.setName(request.getName());
-            artista.setGenre(request.getGenre());
-            artista.setImage(request.getImage());
-            artistaMap.put(artistId, artista);
+        Artista artista = null;
+        if(artistaRepository.findById(artistId) != null) {
+            artista = artistaMapper.apply(request);
+            artistaRepository.save(artista);
         }else {
-            log.error("El Album con id {} no existe", artistId);
-            throw new AlbumNotExistExcetion("El Album con id " + artistId + " no existe");
+            log.error("El Artista NO existe");
+            throw new ArtistaNotExistExcetion("El Artista NO existe");
         }
         return artista;
     }
