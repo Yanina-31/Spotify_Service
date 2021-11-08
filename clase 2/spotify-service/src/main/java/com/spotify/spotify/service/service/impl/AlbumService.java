@@ -63,17 +63,19 @@ public class AlbumService implements IAlbumService {
     @SneakyThrows
     @Override
     public Album updateAlbum(AlbumRequest request, Long albumId) {
-        Album album = null;
-        if(albumMap.get(albumId) != null) {
-            album = albumMapper.apply(request);
-            albumMap.remove(request.getIdAlbum());
-            albumMap.put(request.getIdAlbum(), album);
+        Album album = albumMap.get(albumId);
+        if(album != null) {
+            album.setName(request.getName());
+            album.setIdArtist(request.getIdArtist());
+            album.setIdAlbum(request.getIdAlbum());
+            albumMap.put(albumId, album);
         }else {
-            log.error("El Album con id {} No existe", request.getIdAlbum());
-            throw new AlbumNotExistExcetion("El Album con id " + request.getIdAlbum() + " No existe");
+            log.error("El Album con id {} no existe", albumId);
+            throw new AlbumNotExistExcetion("El Album con id " + albumId + " no existe");
         }
         return album;
     }
+
 }
 
 
