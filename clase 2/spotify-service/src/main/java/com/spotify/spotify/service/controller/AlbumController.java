@@ -6,12 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping(path = "/album")
 public class AlbumController {
+
     @Autowired
     private AlbumService albumService;
 
@@ -26,7 +28,7 @@ public class AlbumController {
     }
 
     @GetMapping(path = "/albums/")
-    public List<Album> retriveAlbums() {
+    public Iterable<Album> retriveAlbums() {
         return albumService.getAlbums();
     }
 

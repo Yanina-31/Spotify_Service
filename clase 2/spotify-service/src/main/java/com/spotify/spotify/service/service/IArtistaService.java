@@ -9,7 +9,7 @@ public interface IArtistaService {
 
     Artista getArtista(Long artistId);
 
-    List<Artista> getArtistas();
+    Iterable<Artista> getArtistas();
 
     Artista createArtista(ArtistaRequest request);
 

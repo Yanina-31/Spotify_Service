@@ -12,31 +12,26 @@ public class ArtistaConfiguration {
     public static List<Artista> getArtistas(){
         return Arrays.asList(
             Artista.builder()
-                .idArtist(1L)
                 .name("Carla")
                 .genre("Melodico")
                 .image("kdnslmñm")
                 .build(),
             Artista.builder()
-                .idArtist(2L)
                 .name("Mauri")
                 .genre("Rock")
                 .image("kdnsljnñm")
                 .build(),
             Artista.builder()
-                .idArtist(3L)
                 .name("Facu")
                 .genre("Infantil")
                 .image("kdnsldcxxmñm")
                 .build(),
             Artista.builder()
-                .idArtist(4L)
                 .name("Rodrigo")
                 .genre("Pop")
                 .image("kdnslmcvvvvcñm")
                 .build(),
             Artista.builder()
-                .idArtist(5L)
                 .name("Mili")
                 .genre("Pop")
                 .image("vvvvcñm")
