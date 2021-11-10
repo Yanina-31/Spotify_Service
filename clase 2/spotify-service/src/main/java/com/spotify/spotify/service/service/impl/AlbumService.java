@@ -33,7 +33,7 @@ public class AlbumService implements IAlbumService {
 
     private Map<Long, Album> albumMap = new HashMap<>();
 
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         if (albums != null && !albums.isEmpty()) {
             albums.stream().forEach(album -> {
@@ -55,9 +55,11 @@ public class AlbumService implements IAlbumService {
         return albumRepository.findAll();
     }
 
+
+
     public Album createAlbum(AlbumRequest request) {
         Album album = albumMapper.apply(request);
-        if(request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
+        if(request.getIdAlbum() != null && albumRepository.findByIdAlbum(request.getIdAlbum()) != null) {
             log.error("El Album ya existe");
             throw new AlbumExistsException("El Album ya existe");
         }else {
@@ -65,6 +67,7 @@ public class AlbumService implements IAlbumService {
         }
         return album;
     }
+
 
     @SneakyThrows
     @Override

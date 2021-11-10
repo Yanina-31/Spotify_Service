@@ -1,5 +1,4 @@
 package com.spotify.spotify.service.controller;
-
 import com.spotify.spotify.service.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -28,7 +27,7 @@ public class GlobalControllerAdvice {
         return errors;
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(AlbumExistsException.class)
     public Map<String, String> handlerValidationException(AlbumExistsException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -81,5 +80,5 @@ public class GlobalControllerAdvice {
         errors.put(fieldName, ex.getMessage());
         return errors;
     }
-
+*/
 }

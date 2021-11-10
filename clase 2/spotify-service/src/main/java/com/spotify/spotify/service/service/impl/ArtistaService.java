@@ -1,26 +1,18 @@
 package com.spotify.spotify.service.service.impl;
-import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.exceptions.AlbumExistsException;
-import com.spotify.spotify.service.exceptions.AlbumNotExistExcetion;
-import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
-import com.spotify.spotify.service.repository.AlbumRepository;
 import com.spotify.spotify.service.repository.ArtistaRepository;
 import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.IArtistaService;
-import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
-import com.spotify.spotify.service.types.model.Album;
 import com.spotify.spotify.service.types.model.Artista;
-import com.spotify.spotify.service.types.model.Track;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +23,6 @@ public class ArtistaService implements IArtistaService {
 
     @Autowired
     private ArtistaMapper artistaMapper;
-
-    @Autowired
-    private TrackService trackService;
 
     @Autowired
     private ArtistaRepository artistaRepository;
@@ -48,7 +37,7 @@ public class ArtistaService implements IArtistaService {
     private Map<Long, Artista> artistaMap = new HashMap<>();
 
 
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         if (artistas != null && !artistas.isEmpty()) {
             artistas.stream().forEach(artista -> {
