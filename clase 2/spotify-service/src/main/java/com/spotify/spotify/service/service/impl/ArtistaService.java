@@ -7,6 +7,7 @@ import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
 import com.spotify.spotify.service.repository.AlbumRepository;
 import com.spotify.spotify.service.repository.ArtistaRepository;
+import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.IArtistaService;
 import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
@@ -37,6 +38,9 @@ public class ArtistaService implements IArtistaService {
     @Autowired
     private ArtistaRepository artistaRepository;
 
+    @Autowired
+    private TrackRepository trackRepository;
+
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
@@ -44,12 +48,14 @@ public class ArtistaService implements IArtistaService {
     private Map<Long, Artista> artistaMap = new HashMap<>();
 
 
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
-       artistas.stream().forEach(artista -> {
-           artistaRepository.save(artista);
-        });
-    }*/
+        if (artistas != null && !artistas.isEmpty()) {
+            artistas.stream().forEach(artista -> {
+                artistaRepository.save(artista);
+            });
+        }
+    }
 
     public Artista getArtista(Long artistId) {
         return artistaRepository.findById(artistId).get();
@@ -59,6 +65,7 @@ public class ArtistaService implements IArtistaService {
         artistaRepository.deleteById(artistId);
         return null;
     }
+
 
     public Iterable<Artista> getArtistas(){
         return artistaRepository.findAll();
@@ -89,11 +96,11 @@ public class ArtistaService implements IArtistaService {
         return artista;
     }
 
-   public List<Track> getTracks() {
-       return trackService.getTracks();
-    }
+    /*public Iterable<Track> getTracks() {
+        return trackRepository.findAll();
+    }*/
 
-   public List<Artista> getArtistasTop5() {
+  /* public List<Artista> getArtistasTop5() {
         return new ArrayList<>(artistaMap.values());
-    }
+    }*/
 }

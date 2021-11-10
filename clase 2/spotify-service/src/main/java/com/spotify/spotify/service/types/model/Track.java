@@ -30,11 +30,4 @@ public class Track {
     @Column(name = "duration")
     private double duration;
 
-
-   /* @ManyToOne
-    @JoinColumn(name = "id_album")
-    private Album album;*/
-
-
-
 }

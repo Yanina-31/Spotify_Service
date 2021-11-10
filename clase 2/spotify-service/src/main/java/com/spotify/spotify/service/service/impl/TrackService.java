@@ -1,9 +1,14 @@
 package com.spotify.spotify.service.service.impl;
 import com.spotify.spotify.service.controller.request.TrackRequest;
+import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
 import com.spotify.spotify.service.exceptions.TrackExistsException;
 import com.spotify.spotify.service.exceptions.TrackNotExistException;
+import com.spotify.spotify.service.repository.AlbumRepository;
+import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.TrackMapper;
+import com.spotify.spotify.service.types.model.Album;
+import com.spotify.spotify.service.types.model.Artista;
 import com.spotify.spotify.service.types.model.Track;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -22,68 +27,68 @@ public class TrackService implements ITrackService {
     @Autowired
     private TrackMapper trackMapper;
 
+    @Autowired
+    private TrackRepository trackRepository;
+
     @Qualifier("tracks")
     @Autowired
     private List<Track> tracks;
 
+    private Map<Long, Album> albumMap = new HashMap<>();
+
     @PostConstruct
     public void init() {
-        trackMap = new HashMap<>();
-        tracks.stream().forEach(track -> {
-            trackMap.put(track.getId(), track);
-        });
+        if (tracks != null && !tracks.isEmpty()) {
+            tracks.stream().forEach(track -> {
+                trackRepository.save(track);
+            });
+        }
     }
-
-    private Map<Long, Track> trackMap;
 
     public Track getTrack(Long trackId) {
-        return trackMap.get(trackId);
+        return trackRepository.findById(trackId).get();
     }
 
-    @Override
-    public List<Track> getTracks() {
-        return new ArrayList<>(trackMap.values());
+
+    public Iterable<Track> getTracks() {
+        return trackRepository.findAll();
     }
 
     public Track deleteTrack(Long trackId) {
-        return trackMap.remove(trackId);
+        trackRepository.deleteById(trackId);
+        return null;
     }
 
 
     public Track createTrack(TrackRequest request) {
         Track track = trackMapper.apply(request);
-        if (trackMap.get(request.getId()) == null) {
-            trackMap.put(request.getId(), trackMapper.apply(request));
-        } else{
-            log.error("Track with id {} already exists", request.getId());
-        throw new TrackExistsException("Track with id " + request.getId() + " already exists");
+        if (request.getId() != null && trackRepository.findById(request.getId()) != null) {
+            log.error("El Pinnaper ya existe");
+            throw new TrackExistsException("El Pinnaper ya existe");
+        } else {
+            trackRepository.save(trackMapper.apply(request));
         }
         return track;
     }
     @SneakyThrows
     @Override
     public Track updateTrack(TrackRequest request, Long trackId) {
-        Track track = trackMap.get(trackId);
-        if(track != null) {
-            track.setId(request.getId());
-            track.setName(request.getName());
-            track.setIdArtist(request.getIdArtist());
-            track.setIdAlbum(request.getIdAlbum());
-            track.setReproduction(request.getReproduction());
-            track.setDuration(request.getDuration());
-            trackMap.put(trackId, track);
-        } else {
-            log.error("Track with id {} does not exist", trackId);
-            throw new TrackNotExistException("Track with id " + trackId + " does not exist");
+        Track track = null;
+        if(trackRepository.findById(trackId) != null) {
+            track = trackMapper.apply(request);
+            trackRepository.save(track);
+        }else {
+            log.error("El Artista NO existe");
+            throw new TrackNotExistException("El Artista NO existe");
         }
         return track;
     }
 
     public Track incrementReproduction(Long trackId) throws TrackNotExistException {
-        Track track = trackMap.get(trackId);
+        Track track = trackRepository.findById(trackId).get();
         if(track != null) {
             track.setReproduction(track.getReproduction() + 1);
-            trackMap.put(trackId, track);
+            trackRepository.save(track);
         } else {
             log.error("Track with id {} does not exist", trackId);
             throw new TrackNotExistException("Track with id " + trackId + " does not exist");
@@ -91,7 +96,7 @@ public class TrackService implements ITrackService {
         return track;
     }
 
-    public List<Track> getTopTracks() {
-        return new ArrayList<>(trackMap.values());
-    }
+   /* public List<Track> getTopTracks() {
+        return new ArrayList<>(trackRepository.save(tracks));
+    }*/
 }

@@ -4,6 +4,17 @@ server:
 spring:
   application:
     name: spotity-service
+  datasource:
+    url: jdbc:h2:file:c:/data/demo
+    username: yani
+    password: yani
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  hibernate:
+    ddl-auto: none
+  h2:
+    console.enabled: true
 
 management:
   endpoints:

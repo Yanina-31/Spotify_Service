@@ -12,7 +12,7 @@ public interface ITrackService {
 
     Track getTrack(Long trackId);
 
-    List<Track> getTracks();
+    Iterable<Track> getTracks();
 
     Track createTrack(TrackRequest request);
 
@@ -22,6 +22,6 @@ public interface ITrackService {
 
     Track incrementReproduction(Long trackId) throws TrackNotExistException;
 
-    List<Track> getTopTracks();
+    /*List<Track> getTopTracks();*/
 
 }

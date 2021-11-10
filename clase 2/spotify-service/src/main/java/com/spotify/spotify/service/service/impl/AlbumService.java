@@ -33,12 +33,14 @@ public class AlbumService implements IAlbumService {
 
     private Map<Long, Album> albumMap = new HashMap<>();
 
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
-        albums.stream().forEach(album -> {
-            albumRepository.save(album);
-        });
-    }*/
+        if (albums != null && !albums.isEmpty()) {
+            albums.stream().forEach(album -> {
+                albumRepository.save(album);
+            });
+        }
+    }
 
     public Album getAlbum(Long albumId) {
         return albumRepository.findById(albumId).get();

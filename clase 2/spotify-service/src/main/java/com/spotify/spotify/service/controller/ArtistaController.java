@@ -50,16 +50,16 @@ public class ArtistaController {
         return artistaService.deleteArtista(artistId);
     }
 
-    @GetMapping(path = "/artist/{artistId}/songs/rank")
+    /*@GetMapping(path = "/artist/{artistId}/songs/rank")
     public List<Track> getTracks() {
         return artistaService.getTracks();
-    }
+    }*/
 
 
-    @GetMapping(path = "/artist/rank")
+    /*@GetMapping(path = "/artist/rank")
     public List<Artista> getArtistasTop5() {
         return artistaService.getArtistasTop5();
-    }
+    }*/
 
 }
 

@@ -27,7 +27,7 @@ public class TrackController {
     }
 
     @GetMapping(path = "/tracks/")
-    public List<Track> retriveTracks() {
+    public Iterable<Track> retriveTracks() {
         return trackService.getTracks();
     }
 
@@ -50,10 +50,10 @@ public class TrackController {
     public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
         return trackService.incrementReproduction(trackId);
     }
-    @GetMapping(path = "/track/rank")
+    /*@GetMapping(path = "/track/rank")
     public List<Track> getTopTracks() {
         return trackService.getTopTracks();
-    }
+    }*/
 
 
 }
