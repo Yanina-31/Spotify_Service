@@ -20,7 +20,10 @@ public class Artista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_artist")
     private Long idArtist;
+    @Column(name = "name")
     private String name;
+    @Column(name = "genre")
     private String genre;
+    @Column(name = "image")
     private String image;
 }

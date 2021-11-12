@@ -16,11 +16,17 @@ import javax.persistence.*;
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    private Long idArtist;
-    private Long idAlbum;
+    @Column(name = "name")
     private String name;
+    @Column(name="id_Artist")
+    private Long idArtist;
+    @Column(name="id_Album")
+    private Long idAlbum;
+    @Column(name="reproduction")
     private Long reproduction;
+    @Column(name="duration")
     private double duration;
 
 
