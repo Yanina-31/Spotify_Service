@@ -17,7 +17,7 @@ public interface IArtistaService {
 
     Artista deleteArtista(Long artistId);
 
-    List<Track> getTracks();
+    /*List<Track> getTracks();
 
-    List<Artista> getArtistasTop5();
+    List<Artista> getArtistasTop5();*/
 }

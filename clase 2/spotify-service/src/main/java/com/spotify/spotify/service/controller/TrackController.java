@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -21,13 +21,13 @@ public class TrackController {
         return "En esta pagina podra encontrar Track";
     }
 
-    @GetMapping(path = "{trackId}")
-    public Track retriveTrack(@PathVariable("trackId") Long trackId) {
-        return trackService.getTrack(trackId);
+    @GetMapping(path = "{id}")
+    public Track retriveTrack(@PathVariable("id") Long id) {
+        return trackService.getTrack(id);
     }
 
-    @GetMapping(path = "/tracks/")
-    public List<Track> retriveTracks() {
+    @GetMapping(path = "/tracks")
+    public Iterable<Track> retriveTracks() {
         return trackService.getTracks();
     }
 
@@ -46,14 +46,14 @@ public class TrackController {
         return trackService.deleteTrack(trackId);
     }
 
-    @GetMapping(path = "/spotify/play/track/{trackId}")
+    /*@GetMapping(path = "/spotify/play/track/{trackId}")
     public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
         return trackService.incrementReproduction(trackId);
-    }
-    @GetMapping(path = "/track/rank")
+    }*/
+    /*@GetMapping(path = "/track/rank")
     public List<Track> getTopTracks() {
         return trackService.getTopTracks();
-    }
+    }*/
 
 
 }

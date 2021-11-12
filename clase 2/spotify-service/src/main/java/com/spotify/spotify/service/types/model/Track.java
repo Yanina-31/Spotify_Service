@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,24 +15,18 @@ import javax.persistence.*;
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "id_album")
-    private Long idAlbum;
-    @Column(name = "id_artist")
-    private Long idArtist;
-    @Column(name = "reproduction")
     private Long reproduction;
-    @Column(name = "duration")
     private double duration;
 
 
-   /* @ManyToOne
-    @JoinColumn(name = "id_album")
-    private Album album;*/
+    @ManyToOne
+    @JoinColumn(name ="idAlbum")
+    private Album joinAlbum;
 
-
+    @ManyToOne
+    @JoinColumn(name ="idArtist")
+    private Artista joinArtist;
 
 }

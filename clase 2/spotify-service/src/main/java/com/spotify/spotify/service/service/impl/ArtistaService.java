@@ -1,25 +1,18 @@
 package com.spotify.spotify.service.service.impl;
-import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.exceptions.AlbumExistsException;
-import com.spotify.spotify.service.exceptions.AlbumNotExistExcetion;
-import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
-import com.spotify.spotify.service.repository.AlbumRepository;
 import com.spotify.spotify.service.repository.ArtistaRepository;
+import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.IArtistaService;
-import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
-import com.spotify.spotify.service.types.model.Album;
 import com.spotify.spotify.service.types.model.Artista;
-import com.spotify.spotify.service.types.model.Track;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +25,10 @@ public class ArtistaService implements IArtistaService {
     private ArtistaMapper artistaMapper;
 
     @Autowired
-    private TrackService trackService;
+    private ArtistaRepository artistaRepository;
 
     @Autowired
-    private ArtistaRepository artistaRepository;
+    private TrackRepository trackRepository;
 
     @Qualifier("artistas")
     @Autowired
@@ -44,12 +37,14 @@ public class ArtistaService implements IArtistaService {
     private Map<Long, Artista> artistaMap = new HashMap<>();
 
 
-    /*@PostConstruct
+    //@PostConstruct
     public void init() {
-       artistas.stream().forEach(artista -> {
-           artistaRepository.save(artista);
-        });
-    }*/
+        if (artistas != null && !artistas.isEmpty()) {
+            artistas.stream().forEach(artista -> {
+                artistaRepository.save(artista);
+            });
+        }
+    }
 
     public Artista getArtista(Long artistId) {
         return artistaRepository.findById(artistId).get();
@@ -59,6 +54,7 @@ public class ArtistaService implements IArtistaService {
         artistaRepository.deleteById(artistId);
         return null;
     }
+
 
     public Iterable<Artista> getArtistas(){
         return artistaRepository.findAll();
@@ -89,11 +85,11 @@ public class ArtistaService implements IArtistaService {
         return artista;
     }
 
-   public List<Track> getTracks() {
-       return trackService.getTracks();
-    }
+    /*public Iterable<Track> getTracks() {
+        return trackRepository.findAll();
+    }*/
 
-   public List<Artista> getArtistasTop5() {
+  /* public List<Artista> getArtistasTop5() {
         return new ArrayList<>(artistaMap.values());
-    }
+    }*/
 }

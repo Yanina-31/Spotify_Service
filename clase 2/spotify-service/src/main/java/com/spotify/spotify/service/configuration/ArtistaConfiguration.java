@@ -14,28 +14,27 @@ public class ArtistaConfiguration {
             Artista.builder()
                 .name("Carla")
                 .genre("Melodico")
-                .image("kdnslmñm")
+                .image("imagen1")
                 .build(),
             Artista.builder()
                 .name("Mauri")
                 .genre("Rock")
-                .image("kdnsljnñm")
+                .image("imagen2")
                 .build(),
             Artista.builder()
                 .name("Facu")
                 .genre("Infantil")
-                .image("kdnsldcxxmñm")
+                .image("imagen3")
                 .build(),
             Artista.builder()
                 .name("Rodrigo")
-                .genre("Pop")
-                .image("kdnslmcvvvvcñm")
+                .genre("Electronica")
+                .image("imagen4")
                 .build(),
             Artista.builder()
                 .name("Mili")
                 .genre("Pop")
-                .image("vvvvcñm")
+                .image("imagen5")
                 .build());
-
     }
 }

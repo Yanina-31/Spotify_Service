@@ -24,11 +24,11 @@ public class AlbumConfiguration {
                         .build(),
                 Album.builder()
                         .idArtist(4L)
-                        .name("Animal")
+                        .name("Prometo")
                         .build(),
                 Album.builder()
                         .idArtist(5L)
-                        .name("Quiero volver")
+                        .name("Infame")
                         .build());
     }
 }
