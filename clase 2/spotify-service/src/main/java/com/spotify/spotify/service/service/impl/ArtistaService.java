@@ -1,7 +1,8 @@
 package com.spotify.spotify.service.service.impl;
+
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.exceptions.AlbumExistsException;
-import com.spotify.spotify.service.exceptions.ArtistaNotExistExcetion;
+import com.spotify.spotify.service.exceptions.ArtistaNotExistException;
 import com.spotify.spotify.service.repository.ArtistaRepository;
 import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.IArtistaService;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +39,7 @@ public class ArtistaService implements IArtistaService {
     private Map<Long, Artista> artistaMap = new HashMap<>();
 
 
-    //@PostConstruct
+    @PostConstruct
     public void init() {
         if (artistas != null && !artistas.isEmpty()) {
             artistas.stream().forEach(artista -> {
@@ -56,16 +58,16 @@ public class ArtistaService implements IArtistaService {
     }
 
 
-    public Iterable<Artista> getArtistas(){
+    public Iterable<Artista> getArtistas() {
         return artistaRepository.findAll();
     }
 
     public Artista createArtista(ArtistaRequest request) {
         Artista artista = artistaMapper.apply(request);
-        if(request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
+        if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
             log.error("El Artista ya existe");
             throw new AlbumExistsException("El Artista ya existe");
-        }else {
+        } else {
             artistaRepository.save(artistaMapper.apply(request));
         }
         return artista;
@@ -75,12 +77,12 @@ public class ArtistaService implements IArtistaService {
     @Override
     public Artista updateArtista(ArtistaRequest request, Long artistId) {
         Artista artista = null;
-        if(artistaRepository.findById(artistId) != null) {
+        if (artistaRepository.findById(artistId) != null) {
             artista = artistaMapper.apply(request);
             artistaRepository.save(artista);
-        }else {
+        } else {
             log.error("El Artista NO existe");
-            throw new ArtistaNotExistExcetion("El Artista NO existe");
+            throw new ArtistaNotExistException("El Artista NO existe");
         }
         return artista;
     }
