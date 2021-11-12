@@ -1,7 +1,7 @@
 package com.spotify.spotify.service.service.impl;
 
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
-import com.spotify.spotify.service.exceptions.AlbumExistsException;
+import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistException;
 import com.spotify.spotify.service.repository.ArtistaRepository;
 import com.spotify.spotify.service.repository.TrackRepository;
@@ -22,22 +22,16 @@ import java.util.Map;
 @Slf4j
 @Service
 public class ArtistaService implements IArtistaService {
-
     @Autowired
     private ArtistaMapper artistaMapper;
-
     @Autowired
     private ArtistaRepository artistaRepository;
-
     @Autowired
     private TrackRepository trackRepository;
-
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
-
     private Map<Long, Artista> artistaMap = new HashMap<>();
-
 
     @PostConstruct
     public void init() {
@@ -48,12 +42,25 @@ public class ArtistaService implements IArtistaService {
         }
     }
 
-    public Artista getArtista(Long artistId) {
-        return artistaRepository.findById(artistId).get();
+    public Artista getArtista(Long artistId) throws ArtistaNotExistException {
+        try {
+            return artistaRepository.findById(artistId).get();
+        } catch (Exception e) {
+            throw new ArtistaNotExistException("The artist doesn't not exist");
+        }
     }
 
-    public Artista deleteArtista(Long artistId) {
-        artistaRepository.deleteById(artistId);
+    public Artista deleteArtista(Long artistId) throws ArtistaNotExistException {
+        try {
+            if (artistaRepository.findById(artistId) != null) {
+                Artista artista = artistaRepository.findById(artistId).get();
+                artistaRepository.deleteById(artistId);
+                return artista;
+            }
+        } catch (Exception e) {
+            log.error("Artist already exists");
+            throw new ArtistaNotExistException("The artist doesn't not exist");
+        }
         return null;
     }
 
@@ -65,10 +72,10 @@ public class ArtistaService implements IArtistaService {
     public Artista createArtista(ArtistaRequest request) {
         Artista artista = artistaMapper.apply(request);
         if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
-            log.error("El Artista ya existe");
-            throw new AlbumExistsException("El Artista ya existe");
+            log.error("Artist already exists");
+            throw new ArtistaExistsException("Error the Id is created automatically");
         } else {
-            artistaRepository.save(artistaMapper.apply(request));
+            artista = artistaRepository.save(artistaMapper.apply(request));
         }
         return artista;
     }
@@ -76,22 +83,20 @@ public class ArtistaService implements IArtistaService {
     @SneakyThrows
     @Override
     public Artista updateArtista(ArtistaRequest request, Long artistId) {
-        Artista artista = null;
-        if (artistaRepository.findById(artistId) != null) {
-            artista = artistaMapper.apply(request);
-            artistaRepository.save(artista);
-        } else {
-            log.error("El Artista NO existe");
-            throw new ArtistaNotExistException("El Artista NO existe");
+        try {
+            Artista artista = artistaRepository.findById(artistId).get();
+            if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
+                artista.setIdArtist(artistId);
+                artistaRepository.save(artistaMapper.apply(request));
+            } else {
+                log.error("Artist doesn't  not exist");
+                throw new ArtistaNotExistException("The artist doesn't  not exist");
+            }
+            return artista;
+        } catch (Exception e) {
+            throw new ArtistaNotExistException("The artist doesn't  not exist");
         }
-        return artista;
     }
-
-    /*public Iterable<Track> getTracks() {
-        return trackRepository.findAll();
-    }*/
-
-  /* public List<Artista> getArtistasTop5() {
-        return new ArrayList<>(artistaMap.values());
-    }*/
 }
+
+
