@@ -8,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-
 @Slf4j
 @RestController
 @RequestMapping(path = "/track")
@@ -23,7 +21,7 @@ public class TrackController {
     }
 
     @GetMapping(path = "{id}")
-    public Track retriveTrack(@PathVariable("id") Long id) {
+    public Track retriveTrack(@PathVariable("id") Long id) throws TrackNotExistException {
         return trackService.getTrack(id);
     }
 
@@ -34,28 +32,19 @@ public class TrackController {
 
     @PostMapping(path = "/track")
     public Track createTrack(@Validated @RequestBody TrackRequest request) {
+        log.info(String.format("Creating track with name %s", request));
         return trackService.createTrack(request);
     }
 
     @PutMapping(path = "/{trackId}")
-    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId) {
+    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId) throws TrackNotExistException {
         return trackService.updateTrack(request, trackId);
     }
 
     @DeleteMapping(path = "/{trackId}")
-    public Track deleteTrack(@PathVariable("trackId") Long trackId) {
+    public Track deleteTrack(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
         return trackService.deleteTrack(trackId);
     }
-
-    /*@GetMapping(path = "/spotify/play/track/{trackId}")
-    public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
-        return trackService.incrementReproduction(trackId);
-    }*/
-    /*@GetMapping(path = "/track/rank")
-    public List<Track> getTopTracks() {
-        return trackService.getTopTracks();
-    }*/
-
 
 }
 
