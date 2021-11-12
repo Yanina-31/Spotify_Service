@@ -1,4 +1,5 @@
 package com.spotify.spotify.service.controller;
+
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.service.impl.ArtistaService;
 import com.spotify.spotify.service.service.impl.TrackService;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Slf4j
@@ -40,12 +42,13 @@ public class ArtistaController {
     public Artista createArtista(@Validated @RequestBody ArtistaRequest request) {
         return artistaService.createArtista(request);
     }
+
     @PutMapping(path = "/{artistId}")
     public Artista updateArtista(@Validated @RequestBody ArtistaRequest request, @PathVariable("artistId") Long artistId) {
         return artistaService.updateArtista(request, artistId);
     }
 
-    @DeleteMapping(path ="/{artistId}")
+    @DeleteMapping(path = "/{artistId}")
     public Artista deleteArtista(@PathVariable("artistId") Long artistId) {
         return artistaService.deleteArtista(artistId);
     }

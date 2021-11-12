@@ -2,6 +2,7 @@ package com.spotify.spotify.service.controller.request;
 
 import lombok.Builder;
 import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 
 @Builder

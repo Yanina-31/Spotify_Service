@@ -1,4 +1,5 @@
 package com.spotify.spotify.service.service.impl;
+
 import com.spotify.spotify.service.controller.request.TrackRequest;
 import com.spotify.spotify.service.exceptions.TrackExistsException;
 import com.spotify.spotify.service.exceptions.TrackNotExistException;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +34,7 @@ public class TrackService implements ITrackService {
 
     private Map<Long, Album> albumMap = new HashMap<>();
 
-    //@PostConstruct
+    @PostConstruct
     public void init() {
         if (tracks != null && !tracks.isEmpty()) {
             tracks.stream().forEach(track -> {
@@ -69,14 +71,15 @@ public class TrackService implements ITrackService {
         }
         return track;
     }
+
     @SneakyThrows
     @Override
     public Track updateTrack(TrackRequest request, Long trackId) {
         Track track = null;
-        if(trackRepository.findById(trackId) != null) {
+        if (trackRepository.findById(trackId) != null) {
             track = trackMapper.apply(request);
             trackRepository.save(track);
-        }else {
+        } else {
             log.error("El Artista NO existe");
             throw new TrackNotExistException("El Artista NO existe");
         }
