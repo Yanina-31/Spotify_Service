@@ -1,4 +1,5 @@
 package com.spotify.spotify.service.types.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -21,5 +23,4 @@ public class Artista {
     private String name;
     private String genre;
     private String image;
-
 }

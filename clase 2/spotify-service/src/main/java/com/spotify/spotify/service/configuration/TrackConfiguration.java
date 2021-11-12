@@ -14,7 +14,7 @@ public class TrackConfiguration {
         return Arrays.asList(
                 Track.builder()
                         .name("Mariposa Tecnicolor")
-                       //.idArtist(2L)
+                        //.idArtist(2L)
                         //.idAlbum(1L)
                         .reproduction(10L)
                         .duration(3.23)

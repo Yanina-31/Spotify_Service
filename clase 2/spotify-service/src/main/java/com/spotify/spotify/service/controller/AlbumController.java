@@ -1,4 +1,5 @@
 package com.spotify.spotify.service.controller;
+
 import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.exceptions.AlbumNotExistException;
 import com.spotify.spotify.service.service.impl.AlbumService;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/album")

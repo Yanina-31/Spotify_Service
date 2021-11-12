@@ -3,12 +3,10 @@ package com.spotify.spotify.service.service.impl;
 import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.exceptions.AlbumExistsException;
 import com.spotify.spotify.service.exceptions.AlbumNotExistException;
-import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.repository.AlbumRepository;
 import com.spotify.spotify.service.service.IAlbumService;
 import com.spotify.spotify.service.types.mapper.AlbumMapper;
 import com.spotify.spotify.service.types.model.Album;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,10 +39,10 @@ public class AlbumService implements IAlbumService {
     }
 
     public Album getAlbum(Long albumId) throws AlbumNotExistException {
-        try{
+        try {
             return albumRepository.findById(albumId).get();
-        } catch (Exception e){
-            throw new AlbumNotExistException("The album does not exist");
+        } catch (Exception e) {
+            throw new AlbumNotExistException("The album doesn't not exist");
         }
     }
 
@@ -55,10 +53,10 @@ public class AlbumService implements IAlbumService {
                 albumRepository.deleteById(albumId);
                 return album;
             }
-        }catch (Exception e) {
-            throw new AlbumNotExistException("The album does not exist");
-            }
-       return null;
+        } catch (Exception e) {
+            throw new AlbumNotExistException("The album doesn't not exist");
+        }
+        return null;
     }
 
     public Iterable<Album> getAlbums() {
@@ -89,7 +87,7 @@ public class AlbumService implements IAlbumService {
                 throw new AlbumNotExistException("The album doesn't  not exist");
             }
             return album;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new AlbumNotExistException("The album doesn't  not exist");
         }
     }

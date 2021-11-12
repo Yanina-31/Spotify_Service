@@ -1,6 +1,8 @@
 package com.spotify.spotify.service.controller;
 
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
+import com.spotify.spotify.service.exceptions.AlbumNotExistException;
+import com.spotify.spotify.service.exceptions.ArtistaNotExistException;
 import com.spotify.spotify.service.service.impl.ArtistaService;
 import com.spotify.spotify.service.service.impl.TrackService;
 import com.spotify.spotify.service.types.model.Artista;
@@ -28,8 +30,7 @@ public class ArtistaController {
     }
 
     @GetMapping(path = "/{artistId}")
-    public Artista retriveArtista(@PathVariable("artistId") Long artistId) {
-        //log.info("artistId {}", artistId);
+    public Artista retriveArtista(@PathVariable("artistId") Long artistId) throws ArtistaNotExistException {
         return artistaService.getArtista(artistId);
     }
 
@@ -40,6 +41,7 @@ public class ArtistaController {
 
     @PostMapping(path = "/artist")
     public Artista createArtista(@Validated @RequestBody ArtistaRequest request) {
+        log.info(String.format("Creating artista with name %s", request));
         return artistaService.createArtista(request);
     }
 
@@ -49,20 +51,9 @@ public class ArtistaController {
     }
 
     @DeleteMapping(path = "/{artistId}")
-    public Artista deleteArtista(@PathVariable("artistId") Long artistId) {
+    public Artista deleteArtista(@PathVariable("artistId") Long artistId) throws ArtistaNotExistException {
         return artistaService.deleteArtista(artistId);
     }
-
-    /*@GetMapping(path = "/artist/{artistId}/songs/rank")
-    public List<Track> getTracks() {
-        return artistaService.getTracks();
-    }*/
-
-
-    /*@GetMapping(path = "/artist/rank")
-    public List<Artista> getArtistasTop5() {
-        return artistaService.getArtistasTop5();
-    }*/
 
 }
 
