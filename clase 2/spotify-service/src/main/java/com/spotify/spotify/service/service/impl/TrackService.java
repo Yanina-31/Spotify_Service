@@ -71,7 +71,7 @@ public class TrackService implements ITrackService {
     @Override
     public Track createTrack(TrackRequest request) {
         Track track = trackMapper.apply(request);
-        if (trackRepository.findById(request.getId()) != null) {
+        if (trackRepository.findById(request.getId()).isPresent()) {
             log.error("Track already exists");
             throw new TrackExistsException("Error the Id is created automatically");
         } else {

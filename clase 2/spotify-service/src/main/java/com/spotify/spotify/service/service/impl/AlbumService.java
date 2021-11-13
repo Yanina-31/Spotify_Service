@@ -65,7 +65,7 @@ public class AlbumService implements IAlbumService {
     @Override
     public Album createAlbum(AlbumRequest request) {
         Album album = albumMapper.apply(request);
-        if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
+        if (albumRepository.findById(request.getIdAlbum()).isPresent()) {
             log.error("Album already exists");
             throw new AlbumExistsException("Error the Id is created automatically");
         } else {
@@ -79,7 +79,7 @@ public class AlbumService implements IAlbumService {
     public Album updateAlbum(AlbumRequest request, Long albumId)  {
         try {
             Album album = albumRepository.findById(albumId).get();
-            if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
+            if (albumRepository.findById(request.getIdAlbum()) != null) {
                 album.setIdAlbum(albumId);
                 albumRepository.save(albumMapper.apply(request));
             } else {
