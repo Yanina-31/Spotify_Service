@@ -3,9 +3,12 @@ package com.spotify.spotify.service.service;
 import com.spotify.spotify.service.controller.request.TrackRequest;
 import com.spotify.spotify.service.exceptions.TrackNotExistException;
 import com.spotify.spotify.service.types.model.Track;
+
+import java.util.List;
+
 public interface ITrackService {
 
-    Track getTrack(Long trackId) throws TrackNotExistException;
+    Track getTrack(Long trackId);
 
     Iterable<Track> getTracks();
 
@@ -13,7 +16,8 @@ public interface ITrackService {
 
     Track updateTrack(TrackRequest request, Long trackId);
 
-    Track deleteTrack(Long trackId) throws TrackNotExistException;
+    Track deleteTrack(Long trackId);
 
-    Track incrementReproduction(Long trackId) throws TrackNotExistException;
+    Track incrementReproduction(Long trackId) ;
+
 }

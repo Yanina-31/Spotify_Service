@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/track")
@@ -48,9 +50,12 @@ public class TrackController {
     }
 
     @GetMapping(path = "/spotify/play/track/{trackId}")
-    public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
+    public Track incrementReproduction(@PathVariable("trackId") Long trackId) {
         return trackService.incrementReproduction(trackId);
     }
+
+    @GetMapping(path = "/track/rank")
+    public List<Track> retriveTrack(){ return trackService.topRank();}
 }
 
 
