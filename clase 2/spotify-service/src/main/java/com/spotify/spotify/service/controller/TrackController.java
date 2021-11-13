@@ -47,6 +47,10 @@ public class TrackController {
         return trackService.deleteTrack(trackId);
     }
 
+    @GetMapping(path = "/spotify/play/track/{trackId}")
+    public Track incrementReproduction(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
+        return trackService.incrementReproduction(trackId);
+    }
 }
 
 
