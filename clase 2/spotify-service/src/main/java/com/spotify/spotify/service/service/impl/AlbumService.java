@@ -79,7 +79,7 @@ public class AlbumService implements IAlbumService {
     public Album updateAlbum(AlbumRequest request, Long albumId)  {
         try {
             Album album = albumRepository.findById(albumId).get();
-            if (albumRepository.findById(request.getIdAlbum()) != null) {
+            if (request.getIdArtist() != null && albumRepository.findById(request.getIdAlbum()) != null) {
                 album.setIdAlbum(albumId);
                 albumRepository.save(albumMapper.apply(request));
             } else {
