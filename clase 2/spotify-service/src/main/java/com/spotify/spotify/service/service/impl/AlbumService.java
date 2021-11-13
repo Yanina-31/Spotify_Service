@@ -7,16 +7,15 @@ import com.spotify.spotify.service.repository.AlbumRepository;
 import com.spotify.spotify.service.service.IAlbumService;
 import com.spotify.spotify.service.types.mapper.AlbumMapper;
 import com.spotify.spotify.service.types.model.Album;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Slf4j
 @Service
 public class AlbumService implements IAlbumService {
@@ -38,7 +37,9 @@ public class AlbumService implements IAlbumService {
         }
     }
 
-    public Album getAlbum(Long albumId) throws AlbumNotExistException {
+    @Override
+    @SneakyThrows
+    public Album getAlbum(Long albumId){
         try {
             return albumRepository.findById(albumId).get();
         } catch (Exception e) {
@@ -46,10 +47,12 @@ public class AlbumService implements IAlbumService {
         }
     }
 
-    public Album deleteAlbum(Long albumId) throws AlbumNotExistException {
+    @Override
+    @SneakyThrows
+    public Album deleteAlbum(Long albumId) {
         try {
-            if (albumRepository.findById(albumId) != null) {
-                Album album = albumRepository.findById(albumId).get();
+            if (albumRepository.findByIdAlbum(albumId) != null) {
+                Album album = albumRepository.findByIdAlbum(albumId);
                 albumRepository.deleteById(albumId);
                 return album;
             }
@@ -59,6 +62,7 @@ public class AlbumService implements IAlbumService {
         return null;
     }
 
+    @Override
     public Iterable<Album> getAlbums() {
         return albumRepository.findAll();
     }
@@ -66,7 +70,7 @@ public class AlbumService implements IAlbumService {
     @Override
     public Album createAlbum(AlbumRequest request) {
         Album album = albumMapper.apply(request);
-        if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
+        if (albumRepository.findByIdAlbum(request.getIdAlbum()) != null) {
             log.error("Album already exists");
             throw new AlbumExistsException("Error the Id is created automatically");
         } else {
@@ -76,10 +80,11 @@ public class AlbumService implements IAlbumService {
     }
 
     @Override
-    public Album updateAlbum(AlbumRequest request, Long albumId) throws AlbumNotExistException {
+    @SneakyThrows
+    public Album updateAlbum(AlbumRequest request, Long albumId) {
         try {
             Album album = albumRepository.findById(albumId).get();
-            if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
+            if (albumRepository.findByIdAlbum(request.getIdAlbum()) != null) {
                 album.setIdAlbum(albumId);
                 albumRepository.save(albumMapper.apply(request));
             } else {

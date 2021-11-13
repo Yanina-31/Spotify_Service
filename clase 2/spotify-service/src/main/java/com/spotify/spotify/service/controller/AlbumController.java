@@ -1,7 +1,6 @@
 package com.spotify.spotify.service.controller;
 
 import com.spotify.spotify.service.controller.request.AlbumRequest;
-import com.spotify.spotify.service.exceptions.AlbumNotExistException;
 import com.spotify.spotify.service.service.impl.AlbumService;
 import com.spotify.spotify.service.types.model.Album;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ public class AlbumController {
     }
 
     @GetMapping(path = "/{albumId}")
-    public Album retriveAlbum(@PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album retriveAlbum(@PathVariable("albumId") Long albumId) {
         return albumService.getAlbum(albumId);
     }
 
@@ -38,12 +37,12 @@ public class AlbumController {
     }
 
     @PutMapping(path = "/{albumId}")
-    public Album updateAlbum(@Validated @RequestBody AlbumRequest request, @PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album updateAlbum(@Validated @RequestBody AlbumRequest request, @PathVariable("albumId") Long albumId) {
         return albumService.updateAlbum(request, albumId);
     }
 
     @DeleteMapping(path = "/{albumId}")
-    public Album deleteAlbum(@PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album deleteAlbum(@PathVariable("albumId") Long albumId) {
         return albumService.deleteAlbum(albumId);
     }
 }

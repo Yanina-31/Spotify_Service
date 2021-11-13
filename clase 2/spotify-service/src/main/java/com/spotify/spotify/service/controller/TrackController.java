@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/track")
@@ -21,7 +22,7 @@ public class TrackController {
     }
 
     @GetMapping(path = "{id}")
-    public Track retriveTrack(@PathVariable("id") Long id) throws TrackNotExistException {
+    public Track retriveTrack(@PathVariable("id") Long id){
         return trackService.getTrack(id);
     }
 
@@ -37,12 +38,12 @@ public class TrackController {
     }
 
     @PutMapping(path = "/{trackId}")
-    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId) throws TrackNotExistException {
+    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId) {
         return trackService.updateTrack(request, trackId);
     }
 
     @DeleteMapping(path = "/{trackId}")
-    public Track deleteTrack(@PathVariable("trackId") Long trackId) throws TrackNotExistException {
+    public Track deleteTrack(@PathVariable("trackId") Long trackId){
         return trackService.deleteTrack(trackId);
     }
 

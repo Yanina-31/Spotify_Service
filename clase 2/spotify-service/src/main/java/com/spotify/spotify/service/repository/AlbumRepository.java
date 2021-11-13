@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface AlbumRepository extends CrudRepository<Album, Long> {
-    List<Album> findByIdAlbum(Long idAlbum);
+    Album findByIdAlbum(Long idAlbum);
 
-    Album findByName(String name);
+
 
 }
