@@ -22,10 +22,8 @@ import java.util.Map;
 public class TrackService implements ITrackService {
     @Autowired
     private TrackMapper trackMapper;
-
     @Autowired
     private TrackRepository trackRepository;
-
     @Qualifier("tracks")
     @Autowired
     private List<Track> tracks;
@@ -40,10 +38,9 @@ public class TrackService implements ITrackService {
             });
         }
     }
-
-    @Override
     @SneakyThrows
-    public Track getTrack(Long trackId)  {
+    @Override
+    public Track getTrack(Long trackId) {
         try {
             return trackRepository.findById(trackId).get();
         } catch (Exception e) {
@@ -51,13 +48,12 @@ public class TrackService implements ITrackService {
         }
     }
 
-    @Override
+
     public Iterable<Track> getTracks() {
         return trackRepository.findAll();
     }
-
-    @Override
     @SneakyThrows
+    @Override
     public Track deleteTrack(Long trackId) {
         try {
             if (trackRepository.findById(trackId) != null) {
@@ -70,6 +66,7 @@ public class TrackService implements ITrackService {
         }
         return null;
     }
+
 
     @Override
     public Track createTrack(TrackRequest request) {
@@ -101,4 +98,3 @@ public class TrackService implements ITrackService {
         }
     }
 }
-

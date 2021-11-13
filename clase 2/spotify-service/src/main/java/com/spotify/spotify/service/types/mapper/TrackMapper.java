@@ -8,10 +8,12 @@ import java.util.function.Function;
 public class TrackMapper implements Function<TrackRequest, Track> {
     @Override
     public Track apply(TrackRequest trackRequest) {
-        return new Track(trackRequest.getId(),
-                trackRequest.getName(),
-                trackRequest.getIdAlbum(),
-                trackRequest.getReproduction(),
-                trackRequest.getDuration());
+        return Track.builder()
+                .id(trackRequest.getId())
+                .name(trackRequest.getName())
+                .idAlbum(trackRequest.getIdAlbum())
+                .reproduction(trackRequest.getReproduction())
+                .duration(trackRequest.getDuration())
+                .build();
     }
 }

@@ -12,19 +12,19 @@ import javax.persistence.*;
 @Builder
 @Data
 @Entity
+@Table(name = "track")
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id")
-    private long id;
-    //@Column(name = "name")
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "name")
     private String name;
     @ManyToOne
-    @JoinColumn(name = "idAlbum")
+    @JoinColumn(name = "id_album")
     private Album idAlbum;
-    //@Column(name = "reproduction")
-    private long reproduction;
-    //@Column(name = "duration")
+    @Column(name = "reproduction")
+    private Long reproduction;
+    @Column(name = "duration")
     private double duration;
-
 }

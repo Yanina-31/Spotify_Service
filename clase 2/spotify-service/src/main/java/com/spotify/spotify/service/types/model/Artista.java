@@ -10,15 +10,16 @@ import javax.persistence.*;
 @Builder
 @Data
 @Entity
+@Table(name = "artista")
 public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "idArtist")
-    private long idArtist;
-    //@Column(name = "name")
+    @Column(name = "id_artist")
+    private Long idArtist;
+    @Column(name = "name")
     private String name;
-    //@Column(name = "genre")
+    @Column(name = "genre")
     private String genre;
-   // @Column(name = "image")
+    @Column(name = "image")
     private String image;
 }

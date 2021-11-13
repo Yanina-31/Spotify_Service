@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArtistaMapper implements Function<ArtistaRequest, Artista> {
     @Override
-    public Artista apply(ArtistaRequest artistaRequest) {
-        return new Artista(artistaRequest.getIdArtist(),
-                artistaRequest.getName(),
-                artistaRequest.getGenre(),
-                artistaRequest.getImage());
+    public Artista apply(ArtistaRequest artistRequest) {
+        return Artista.builder()
+                .idArtist(artistRequest.getIdArtist())
+                .name(artistRequest.getName())
+                .genre(artistRequest.getGenre())
+                .image(artistRequest.getImage())
+                .build();
     }
-
 }

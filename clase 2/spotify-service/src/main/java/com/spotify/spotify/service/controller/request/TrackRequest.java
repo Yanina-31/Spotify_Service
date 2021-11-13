@@ -11,6 +11,7 @@ public class TrackRequest {
     @NotBlank(message = "The name field cannot be null or empty")
     private String name;
     private Album idAlbum;
-    private long reproduction;
+    private Long reproduction;
     private double duration;
+
 }

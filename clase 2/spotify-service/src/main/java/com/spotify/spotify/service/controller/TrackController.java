@@ -22,7 +22,7 @@ public class TrackController {
     }
 
     @GetMapping(path = "{id}")
-    public Track retriveTrack(@PathVariable("id") Long id){
+    public Track retriveTrack(@PathVariable("id") Long id) {
         return trackService.getTrack(id);
     }
 
@@ -38,15 +38,16 @@ public class TrackController {
     }
 
     @PutMapping(path = "/{trackId}")
-    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId) {
+    public Track updateTrack(@Validated @RequestBody TrackRequest request, @PathVariable("trackId") Long trackId){
         return trackService.updateTrack(request, trackId);
     }
 
     @DeleteMapping(path = "/{trackId}")
-    public Track deleteTrack(@PathVariable("trackId") Long trackId){
+    public Track deleteTrack(@PathVariable("trackId") Long trackId) {
         return trackService.deleteTrack(trackId);
     }
 
 }
+
 
 

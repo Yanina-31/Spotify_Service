@@ -10,15 +10,67 @@ import java.util.List;
 public class ArtistaConfiguration {
     @Bean(name = "artistas")
     public static List<Artista> getArtistas() {
-        return Arrays.asList(new Artista(1, "Metallica", "Rock", "image1"),
-                new Artista(2, "Iron Maiden", "Rock", "image2"),
-                new Artista(3, "La Renga", "Rock", "image3"),
-                new Artista(4, "Luis Miguel", "Romantico", "image4"),
-                new Artista(5, "Pablo Alboran", "Romantico", "image5"),
-                new Artista(6, "Chayanne", "Romantico", "image6"),
-                new Artista(7, "Tini Stoessel", "Pop", "image7"),
-                new Artista(8, "Maria Becerra", "Pop", "image8"),
-                new Artista(9, "Nicki Nicole", "Hip-hop/rap", "image9"),
-                new Artista(10, "Camilo", "Pop latino", "image10"));
+        return Arrays.asList(
+                Artista.builder()
+                        .idArtist(1L)
+                        .name("Metallica")
+                        .genre("Rock")
+                        .image("imagen1")
+                        .build(),
+                Artista.builder()
+                        .idArtist(2L)
+                        .name("Babasonicos")
+                        .genre("Rock")
+                        .image("imagen2")
+                        .build(),
+                Artista.builder()
+                        .idArtist(3L)
+                        .name("La Renga")
+                        .genre("Rock")
+                        .image("imagen3")
+                        .build(),
+                Artista.builder()
+                        .idArtist(4L)
+                        .name("Luis Miguel")
+                        .genre("Romantico")
+                        .image("imagen4")
+                        .build(),
+                Artista.builder()
+                        .idArtist(5L)
+                        .name("Pablo Alboran")
+                        .genre("Romantico")
+                        .image("imagen5")
+                        .build(),
+                Artista.builder()
+                        .idArtist(6L)
+                        .name("Chayanne")
+                        .genre("Romantico")
+                        .image("imagen6")
+                        .build(),
+                Artista.builder()
+                        .idArtist(7L)
+                        .name("Tini Stoessel")
+                        .genre("Pop")
+                        .image("imagen7")
+                        .build(),
+                Artista.builder()
+                        .idArtist(8L)
+                        .name("Maria Becerra")
+                        .genre("Pop")
+                        .image("imagen8")
+                        .build(),
+                Artista.builder()
+                        .idArtist(9L)
+                        .name("Nicki Nicole")
+                        .genre("Hip-hop/rap")
+                        .image("imagen9")
+                        .build(),
+                Artista.builder()
+                        .idArtist(10L)
+                        .name("Camilo")
+                        .genre("Pop latino")
+                        .image("imagen10")
+                        .build());
     }
 }
+

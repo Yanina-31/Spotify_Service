@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @Data
 public class AlbumRequest {
-    private long idAlbum;
+    private Long idAlbum;
     private Artista idArtist;
     @NotBlank(message = "The name field cannot be null or empty")
     private String name;

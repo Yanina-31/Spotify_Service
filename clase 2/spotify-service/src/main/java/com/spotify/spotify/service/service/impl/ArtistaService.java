@@ -24,8 +24,6 @@ public class ArtistaService implements IArtistaService {
     private ArtistaMapper artistaMapper;
     @Autowired
     private ArtistaRepository artistaRepository;
-    @Autowired
-    private TrackRepository trackRepository;
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
@@ -36,25 +34,26 @@ public class ArtistaService implements IArtistaService {
         if (artistas != null && !artistas.isEmpty()) {
             artistas.stream().forEach(artista -> {
                 artistaRepository.save(artista);
+
             });
         }
+
     }
 
-    @Override
     @SneakyThrows
-    public Artista getArtista(Long artistId){
+    @Override
+    public Artista getArtista(Long artistId) {
         try {
             return artistaRepository.findById(artistId).get();
         } catch (Exception e) {
             throw new ArtistaNotExistException("The artist doesn't not exist");
         }
     }
-
-    @Override
     @SneakyThrows
+    @Override
     public Artista deleteArtista(Long artistId){
         try {
-            if (artistaRepository.findByIdArtist(artistId) != null) {
+            if (artistaRepository.findById(artistId) != null) {
                 Artista artista = artistaRepository.findById(artistId).get();
                 artistaRepository.deleteById(artistId);
                 return artista;
@@ -66,15 +65,15 @@ public class ArtistaService implements IArtistaService {
         return null;
     }
 
-    @Override
+
     public Iterable<Artista> getArtistas() {
         return artistaRepository.findAll();
     }
-
+    @SneakyThrows
     @Override
     public Artista createArtista(ArtistaRequest request) {
         Artista artista = artistaMapper.apply(request);
-        if (artistaRepository.findByIdArtist(request.getIdArtist()) != null) {
+        if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
             log.error("Artist already exists");
             throw new ArtistaExistsException("Error the Id is created automatically");
         } else {
@@ -88,7 +87,7 @@ public class ArtistaService implements IArtistaService {
     public Artista updateArtista(ArtistaRequest request, Long artistId) {
         try {
             Artista artista = artistaRepository.findById(artistId).get();
-            if (artistaRepository.findByIdArtist(request.getIdArtist()) != null) {
+            if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
                 artista.setIdArtist(artistId);
                 artistaRepository.save(artistaMapper.apply(request));
             } else {
@@ -101,5 +100,4 @@ public class ArtistaService implements IArtistaService {
         }
     }
 }
-
 

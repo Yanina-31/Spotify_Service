@@ -10,16 +10,16 @@ import javax.persistence.*;
 @Builder
 @Data
 @Entity
+@Table(name = "album")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "idAlbum")
-    private long idAlbum;
+    @Column(name = "id_album")
+    private Long idAlbum;
     @ManyToOne
-    @JoinColumn(name = "idArtist")
+    @JoinColumn(name = "id_artist")
     private Artista idArtist;
-    //@Column(name = "name")
+    @Column(name = "name")
     private String name;
-}
 
-
+   }

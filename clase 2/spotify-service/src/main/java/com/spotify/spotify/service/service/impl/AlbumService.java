@@ -36,23 +36,19 @@ public class AlbumService implements IAlbumService {
             });
         }
     }
-
-    @Override
     @SneakyThrows
-    public Album getAlbum(Long albumId){
+    public Album getAlbum(Long albumId) {
         try {
             return albumRepository.findById(albumId).get();
         } catch (Exception e) {
             throw new AlbumNotExistException("The album doesn't not exist");
         }
     }
-
-    @Override
     @SneakyThrows
-    public Album deleteAlbum(Long albumId) {
+    public Album deleteAlbum(Long albumId){
         try {
-            if (albumRepository.findByIdAlbum(albumId) != null) {
-                Album album = albumRepository.findByIdAlbum(albumId);
+            if (albumRepository.findById(albumId) != null) {
+                Album album = albumRepository.findById(albumId).get();
                 albumRepository.deleteById(albumId);
                 return album;
             }
@@ -62,7 +58,6 @@ public class AlbumService implements IAlbumService {
         return null;
     }
 
-    @Override
     public Iterable<Album> getAlbums() {
         return albumRepository.findAll();
     }
@@ -70,7 +65,7 @@ public class AlbumService implements IAlbumService {
     @Override
     public Album createAlbum(AlbumRequest request) {
         Album album = albumMapper.apply(request);
-        if (albumRepository.findByIdAlbum(request.getIdAlbum()) != null) {
+        if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
             log.error("Album already exists");
             throw new AlbumExistsException("Error the Id is created automatically");
         } else {
@@ -81,10 +76,10 @@ public class AlbumService implements IAlbumService {
 
     @Override
     @SneakyThrows
-    public Album updateAlbum(AlbumRequest request, Long albumId) {
+    public Album updateAlbum(AlbumRequest request, Long albumId)  {
         try {
             Album album = albumRepository.findById(albumId).get();
-            if (albumRepository.findByIdAlbum(request.getIdAlbum()) != null) {
+            if (request.getIdAlbum() != null && albumRepository.findById(request.getIdAlbum()) != null) {
                 album.setIdAlbum(albumId);
                 albumRepository.save(albumMapper.apply(request));
             } else {
@@ -97,5 +92,3 @@ public class AlbumService implements IAlbumService {
         }
     }
 }
-
-

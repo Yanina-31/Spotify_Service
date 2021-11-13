@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 @Component
 public class AlbumMapper implements Function<AlbumRequest, Album> {
-    @Override
-    public Album apply(AlbumRequest albumRequest) {
-        return new Album(albumRequest.getIdAlbum(),
-                albumRequest.getIdArtist(),
-                albumRequest.getName());
+
+    public Album apply(AlbumRequest albumRequest){
+        return Album.builder()
+                .idAlbum(albumRequest.getIdAlbum())
+                .idArtist(albumRequest.getIdArtist())
+                .name(albumRequest.getName())
+                .build();
     }
 }
