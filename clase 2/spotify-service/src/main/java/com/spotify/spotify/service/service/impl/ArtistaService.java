@@ -99,5 +99,9 @@ public class ArtistaService implements IArtistaService {
             throw new ArtistaNotExistException("The artist doesn't  not exist");
         }
     }
+
+    public List<Artista> getTop5Artistas() {
+        return artistaRepository.top5Artistas();
+    }
 }
 
