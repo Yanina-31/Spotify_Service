@@ -14,4 +14,6 @@ public interface ITrackService {
     Track updateTrack(TrackRequest request, Long trackId);
 
     Track deleteTrack(Long trackId) throws TrackNotExistException;
+
+    Track incrementReproduction(Long trackId) throws TrackNotExistException;
 }

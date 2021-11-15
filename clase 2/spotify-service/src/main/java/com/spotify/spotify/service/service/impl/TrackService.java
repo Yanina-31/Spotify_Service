@@ -97,4 +97,20 @@ public class TrackService implements ITrackService {
             throw new TrackNotExistException("The track doesn't  not exist");
         }
     }
+    public Track incrementReproduction(Long trackId) throws TrackNotExistException {
+        try {
+            Track track = getTrack(trackId);
+            if (track != null) {
+                track.setReproduction(track.getReproduction() + 1);
+                trackRepository.save(track);
+            } else {
+                log.error("Track with id {} does not exist", trackId);
+                throw new TrackNotExistException("Track with id " + trackId + " does not exist");
+            }
+            return track;
+        } catch (TrackNotExistException e) {
+            log.error("The track doesn't exist");
+            throw e;
+        }
+    }
 }
