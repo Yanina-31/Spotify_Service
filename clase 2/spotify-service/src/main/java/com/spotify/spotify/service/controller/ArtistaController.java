@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -51,6 +53,11 @@ public class ArtistaController {
     @DeleteMapping(path = "/{artistId}")
     public Artista deleteArtista(@PathVariable("artistId") Long artistId) {
         return artistaService.deleteArtista(artistId);
+    }
+
+    @GetMapping(path = "/artist/rank")
+    public List<Artista> retriveArtist() {
+        return artistaService.getTop5Artistas();
     }
 
 }
