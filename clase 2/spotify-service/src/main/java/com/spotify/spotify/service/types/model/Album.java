@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,11 +16,10 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_album")
     private Long idAlbum;
-    @Column(name = "id_artist")
-    private Long idArtist;
+    @ManyToOne
+    @JoinColumn(name = "id_artist")
+    private Artista idArtist;
     @Column(name = "name")
     private String name;
 
-}
-
-
+   }

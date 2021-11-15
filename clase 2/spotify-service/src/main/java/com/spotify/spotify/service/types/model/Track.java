@@ -20,22 +20,11 @@ public class Track {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name="id_Artist")
-    private Long idArtist;
-    @Column(name="id_Album")
-    private Long idAlbum;
-    @Column(name="reproduction")
-    private Long reproduction;
-    @Column(name="duration")
-    private double duration;
-
-
-    /*@ManyToOne
-    @JoinColumn(name ="idAlbum")
-    private Album joinAlbum;
-
     @ManyToOne
-    @JoinColumn(name ="idArtist")
-    private Artista joinArtist;*/
-
+    @JoinColumn(name = "id_album")
+    private Album idAlbum;
+    @Column(name = "reproduction")
+    private Long reproduction;
+    @Column(name = "duration")
+    private double duration;
 }

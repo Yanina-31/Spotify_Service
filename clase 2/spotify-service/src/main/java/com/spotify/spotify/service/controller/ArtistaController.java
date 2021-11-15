@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -20,7 +19,6 @@ import java.util.List;
 public class ArtistaController {
     @Autowired
     private ArtistaService artistaService;
-
     @Autowired
     private TrackService trackService;
 
@@ -30,7 +28,7 @@ public class ArtistaController {
     }
 
     @GetMapping(path = "/{artistId}")
-    public Artista retriveArtista(@PathVariable("artistId") Long artistId) throws ArtistaNotExistException {
+    public Artista retriveArtista(@PathVariable("artistId") Long artistId) {
         return artistaService.getArtista(artistId);
     }
 
@@ -51,11 +49,12 @@ public class ArtistaController {
     }
 
     @DeleteMapping(path = "/{artistId}")
-    public Artista deleteArtista(@PathVariable("artistId") Long artistId) throws ArtistaNotExistException {
+    public Artista deleteArtista(@PathVariable("artistId") Long artistId) {
         return artistaService.deleteArtista(artistId);
     }
 
 }
+
 
 
 

@@ -1,8 +1,6 @@
 package com.spotify.spotify.service.service.impl;
 
 import com.spotify.spotify.service.controller.request.TrackRequest;
-import com.spotify.spotify.service.exceptions.AlbumExistsException;
-import com.spotify.spotify.service.exceptions.AlbumNotExistException;
 import com.spotify.spotify.service.exceptions.TrackExistsException;
 import com.spotify.spotify.service.exceptions.TrackNotExistException;
 import com.spotify.spotify.service.repository.TrackRepository;
@@ -19,16 +17,13 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Slf4j
 @Service
 public class TrackService implements ITrackService {
     @Autowired
     private TrackMapper trackMapper;
-
     @Autowired
     private TrackRepository trackRepository;
-
     @Qualifier("tracks")
     @Autowired
     private List<Track> tracks;
@@ -43,8 +38,9 @@ public class TrackService implements ITrackService {
             });
         }
     }
-
-    public Track getTrack(Long trackId) throws TrackNotExistException {
+    @SneakyThrows
+    @Override
+    public Track getTrack(Long trackId) {
         try {
             return trackRepository.findById(trackId).get();
         } catch (Exception e) {
@@ -56,8 +52,9 @@ public class TrackService implements ITrackService {
     public Iterable<Track> getTracks() {
         return trackRepository.findAll();
     }
-
-    public Track deleteTrack(Long trackId) throws TrackNotExistException {
+    @SneakyThrows
+    @Override
+    public Track deleteTrack(Long trackId) {
         try {
             if (trackRepository.findById(trackId) != null) {
                 Track track = trackRepository.findById(trackId).get();
@@ -71,10 +68,10 @@ public class TrackService implements ITrackService {
     }
 
 
-
+    @Override
     public Track createTrack(TrackRequest request) {
         Track track = trackMapper.apply(request);
-        if (request.getId() != null && trackRepository.findById(request.getId()) != null) {
+        if (trackRepository.findById(request.getId()).isPresent()) {
             log.error("Track already exists");
             throw new TrackExistsException("Error the Id is created automatically");
         } else {
@@ -88,7 +85,7 @@ public class TrackService implements ITrackService {
     public Track updateTrack(TrackRequest request, Long trackId) {
         try {
             Track track = trackRepository.findById(trackId).get();
-            if (request.getId() != null && trackRepository.findById(request.getId()) != null) {
+            if (trackRepository.findById(request.getId()) != null) {
                 track.setId(trackId);
                 trackRepository.save(trackMapper.apply(request));
             } else {
@@ -101,4 +98,3 @@ public class TrackService implements ITrackService {
         }
     }
 }
-

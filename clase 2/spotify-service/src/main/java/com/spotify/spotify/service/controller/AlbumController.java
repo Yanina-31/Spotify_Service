@@ -22,7 +22,7 @@ public class AlbumController {
     }
 
     @GetMapping(path = "/{albumId}")
-    public Album retriveAlbum(@PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album retriveAlbum(@PathVariable("albumId") Long albumId) {
         return albumService.getAlbum(albumId);
     }
 
@@ -38,12 +38,12 @@ public class AlbumController {
     }
 
     @PutMapping(path = "/{albumId}")
-    public Album updateAlbum(@Validated @RequestBody AlbumRequest request, @PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album updateAlbum(@Validated @RequestBody AlbumRequest request, @PathVariable("albumId") Long albumId) {
         return albumService.updateAlbum(request, albumId);
     }
 
     @DeleteMapping(path = "/{albumId}")
-    public Album deleteAlbum(@PathVariable("albumId") Long albumId) throws AlbumNotExistException {
+    public Album deleteAlbum(@PathVariable("albumId") Long albumId) {
         return albumService.deleteAlbum(albumId);
     }
 }

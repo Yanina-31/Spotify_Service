@@ -13,12 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Slf4j
 @Service
 public class ArtistaService implements IArtistaService {
@@ -26,8 +24,6 @@ public class ArtistaService implements IArtistaService {
     private ArtistaMapper artistaMapper;
     @Autowired
     private ArtistaRepository artistaRepository;
-    @Autowired
-    private TrackRepository trackRepository;
     @Qualifier("artistas")
     @Autowired
     private List<Artista> artistas;
@@ -38,19 +34,24 @@ public class ArtistaService implements IArtistaService {
         if (artistas != null && !artistas.isEmpty()) {
             artistas.stream().forEach(artista -> {
                 artistaRepository.save(artista);
+
             });
         }
+
     }
 
-    public Artista getArtista(Long artistId) throws ArtistaNotExistException {
+    @SneakyThrows
+    @Override
+    public Artista getArtista(Long artistId) {
         try {
             return artistaRepository.findById(artistId).get();
         } catch (Exception e) {
             throw new ArtistaNotExistException("The artist doesn't not exist");
         }
     }
-
-    public Artista deleteArtista(Long artistId) throws ArtistaNotExistException {
+    @SneakyThrows
+    @Override
+    public Artista deleteArtista(Long artistId){
         try {
             if (artistaRepository.findById(artistId) != null) {
                 Artista artista = artistaRepository.findById(artistId).get();
@@ -68,7 +69,8 @@ public class ArtistaService implements IArtistaService {
     public Iterable<Artista> getArtistas() {
         return artistaRepository.findAll();
     }
-
+    @SneakyThrows
+    @Override
     public Artista createArtista(ArtistaRequest request) {
         Artista artista = artistaMapper.apply(request);
         if (request.getIdArtist() != null && artistaRepository.findById(request.getIdArtist()) != null) {
@@ -98,5 +100,4 @@ public class ArtistaService implements IArtistaService {
         }
     }
 }
-
 
