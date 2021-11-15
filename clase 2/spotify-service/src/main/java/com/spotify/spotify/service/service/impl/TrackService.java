@@ -3,6 +3,7 @@ package com.spotify.spotify.service.service.impl;
 import com.spotify.spotify.service.controller.request.TrackRequest;
 import com.spotify.spotify.service.exceptions.TrackExistsException;
 import com.spotify.spotify.service.exceptions.TrackNotExistException;
+import com.spotify.spotify.service.repository.ArtistaRepository;
 import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.ITrackService;
 import com.spotify.spotify.service.types.mapper.TrackMapper;
@@ -13,12 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +27,8 @@ public class TrackService implements ITrackService {
     private TrackMapper trackMapper;
     @Autowired
     private TrackRepository trackRepository;
+    @Autowired
+    private ArtistaRepository artistaRepository;
     @Qualifier("tracks")
     @Autowired
     private List<Track> tracks;
@@ -41,6 +43,7 @@ public class TrackService implements ITrackService {
             });
         }
     }
+
     @SneakyThrows
     @Override
     public Track getTrack(Long trackId) {
@@ -55,6 +58,7 @@ public class TrackService implements ITrackService {
     public Iterable<Track> getTracks() {
         return trackRepository.findAll();
     }
+
     @SneakyThrows
     @Override
     public Track deleteTrack(Long trackId) {
@@ -100,9 +104,10 @@ public class TrackService implements ITrackService {
             throw new TrackNotExistException("The track doesn't  not exist");
         }
     }
+
     @SneakyThrows
     @Override
-    public Track incrementReproduction(Long trackId)  {
+    public Track incrementReproduction(Long trackId) {
         try {
             Track track = getTrack(trackId);
             if (track != null) {
@@ -119,11 +124,14 @@ public class TrackService implements ITrackService {
         }
     }
 
-    public  List<Track> topRank() {
+    //top 5 de canciones populares.
+    public List<Track> topRank() {
         return trackRepository.rankPopulares();
     }
 
+    //top 5 de canciones populares del artista.
+    public List<Track> top5TrackArtist(Long idArtist) {
+        return trackRepository.rankPopularesArtist(idArtist);
+    }
 
-   
-    
 }

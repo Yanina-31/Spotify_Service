@@ -1,11 +1,12 @@
 package com.spotify.spotify.service.configuration;
 
-
 import com.spotify.spotify.service.types.model.Artista;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.Arrays;
 import java.util.List;
+
 @Configuration
 public class ArtistaConfiguration {
     @Bean(name = "artistas")

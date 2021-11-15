@@ -4,7 +4,6 @@ import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.exceptions.ArtistaExistsException;
 import com.spotify.spotify.service.exceptions.ArtistaNotExistException;
 import com.spotify.spotify.service.repository.ArtistaRepository;
-import com.spotify.spotify.service.repository.TrackRepository;
 import com.spotify.spotify.service.service.IArtistaService;
 import com.spotify.spotify.service.types.mapper.ArtistaMapper;
 import com.spotify.spotify.service.types.model.Artista;
@@ -13,10 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Slf4j
 @Service
 public class ArtistaService implements IArtistaService {
@@ -49,9 +50,10 @@ public class ArtistaService implements IArtistaService {
             throw new ArtistaNotExistException("The artist doesn't not exist");
         }
     }
+
     @SneakyThrows
     @Override
-    public Artista deleteArtista(Long artistId){
+    public Artista deleteArtista(Long artistId) {
         try {
             if (artistaRepository.findById(artistId) != null) {
                 Artista artista = artistaRepository.findById(artistId).get();
@@ -69,6 +71,7 @@ public class ArtistaService implements IArtistaService {
     public Iterable<Artista> getArtistas() {
         return artistaRepository.findAll();
     }
+
     @SneakyThrows
     @Override
     public Artista createArtista(ArtistaRequest request) {

@@ -5,6 +5,7 @@ import java.util.function.Function;
 import com.spotify.spotify.service.controller.request.ArtistaRequest;
 import com.spotify.spotify.service.types.model.Artista;
 import org.springframework.stereotype.Component;
+
 @Component
 public class ArtistaMapper implements Function<ArtistaRequest, Artista> {
     @Override
