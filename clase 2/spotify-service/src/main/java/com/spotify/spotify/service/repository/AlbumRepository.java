@@ -1,6 +1,5 @@
 package com.spotify.spotify.service.repository;
 
-import com.spotify.spotify.service.controller.request.AlbumRequest;
 import com.spotify.spotify.service.types.model.Album;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

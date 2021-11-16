@@ -1,13 +1,14 @@
 package com.spotify.spotify.service.configuration;
 
-
 import com.spotify.spotify.service.types.model.Album;
 import com.spotify.spotify.service.types.model.Artista;
 import com.spotify.spotify.service.types.model.Track;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.Arrays;
 import java.util.List;
+
 @Configuration
 public class TrackConfiguration {
     @Bean(name = "tracks")
